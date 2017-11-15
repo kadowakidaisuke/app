@@ -61,7 +61,14 @@
 .page .card .media-right a.icon-rounded {
   background-color: #5cb85c;
 }
+.page .card .media-body div.edit-buttons { /*追加*/
+  margin-top: 10px;
+  text-align: center;
+}
 
+.page .card .media-body div.edit-buttons .btn { /*追加*/
+  width: 100px;
+}
 /*削除
 .page .chart-form {
   margin: 20px 0;

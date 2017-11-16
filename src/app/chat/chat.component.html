@@ -4,7 +4,7 @@
       NgChat
     </div>
     <div class="card-block">
-      <ng-container *ngFor="let comment of comments;let i=index">
+      <ng-container *ngFor="let comment of comments.reverse();let i = index; trackBy: trackFn">
         <!-- iを追加 -->
         <div class="media">
           <div class="media-left" *ngIf="comment.user.uid !== current_user.uid">

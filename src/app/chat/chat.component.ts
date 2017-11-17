@@ -44,6 +44,7 @@ export class ChatComponent implements OnInit {
        //文字数カウントリセット
        this.count = this.max;
      }
+     console.log(this.comments);
   }
 
   // 編集フィールドの切り替え
@@ -73,9 +74,7 @@ export class ChatComponent implements OnInit {
 
   // コメントを削除する
   deleteComment(key: string) {
-    this.FB_comments.remove(key).then(() => {
-      alert('コメントを削除しました');
-    });
+    this.FB_comments.remove(key);
   }
 
   //トラッキング

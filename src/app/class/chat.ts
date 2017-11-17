@@ -19,7 +19,6 @@ export class Comment {
   edit_flag?: boolean; // 追加
   cloud_x?: number;
   cloud_y?: number;
-
   constructor(user: User, content: string) {
     this.user = user;
     this.initial = user.name.slice(0, 1);

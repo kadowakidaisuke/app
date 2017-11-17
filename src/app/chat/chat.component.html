@@ -1,15 +1,9 @@
 <div class="page">
   <section class="card">
-    <div class="card-header">
-      NgChat
-    </div>
-    <div class="card-block">
+    <div class="cloud_area">
       <ng-container *ngFor="let comment of comments.reverse();let i = index; trackBy: trackFn">
         <!-- iを追加 -->
-        <div class="media">
-          <div class="media-left" *ngIf="comment.user.uid !== current_user.uid">
-            <a href="#" class="icon-rounded">{{comment.initial}}</a>
-          </div>
+        <div class="media" [style.top]="comment.cloud_y + '%'" [style.left]="comment.cloud_x + '%'" [style.z-index]="comments.length - i">
           <div class="media-body">
             <h4 class="media-heading">{{comment.user.name}}  Date: {{comment.date | chatDate}}
              <button class="btn btn-primary btn-sm" (click)="toggleEditComment(i)">編集</button>
@@ -30,11 +24,7 @@
             </ng-container>
             <!-- 切り替えここまで -->
           </div>
-          <div class="media-right" *ngIf="comment.user.uid === current_user.uid">
-            <a href="#" class="icon-rounded">{{comment.initial}}</a>
-          </div>
         </div>
-        <hr>
       </ng-container>
     </div>
   </section>
@@ -43,10 +33,11 @@
   <section class="page-footer">
     <form class="chart-form">
       <div class="input-group">
-        <input type="text" class="form-control" [(ngModel)]="content" name="comment" placeholder="Comment" (keyup.enter)="addComment(content)">
+        <input type="text" class="form-control" [(ngModel)]="content" name="comment" (input)="setCount()" [ngStyle]="myStyle" placeholder="Comment" (keyup.enter)="addComment(content)">
         <span class="input-group-btn">
           <button class="btn btn-info" type="button" (click)="addComment(content)">SEND</button>
         </span>
+        <div style="position:absolute;top:40px;">{{count}}</div>
       </div>
     </form>
   </section>

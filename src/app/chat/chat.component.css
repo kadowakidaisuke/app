@@ -1,13 +1,7 @@
-.page { /*更新*/
-  max-width: 960px;
+.page {
   height: 100%;
   margin: 0 auto;
-  padding: 10px 0;
   background-color: #fff;
-  border-left: 1px solid #DDDDDD;
-  border-right: 1px solid #DDDDDD;
-  box-shadow: 0 0 15px #DDDDDD;
-  overflow: scroll;
 }
 
 .page section{
@@ -15,23 +9,23 @@
 }
 
 
-.page .page-footer{ /*追加*/
+.page .page-footer{ 
   display: block;
   position: fixed;
   margin: 0;
   padding: 10px;
   bottom: 0;
-  height: 55px;
+  height: 75px;
   width: 100%;
   max-width: 958px;
   background-color: #fff;
   border-top: 1px solid #DDDDDD;
+  z-index: 9999;
 }
 
 .page .card .media-body {
   padding: 18px;
   margin: 0 10px;
-  background-color: #F5F5F5;
   border-radius: 10px;
   font-size: 15px;
   word-break: break-all;
@@ -63,21 +57,49 @@
   background-color: #5cb85c;
 }
 
-.page .card-block .media {
-  opacity:0;
-  animation: fadein;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-@keyframes fadein {
-    from {
-      opacity:0;
-    }
-    to {
-      opacity: 1;
-    }
+.cloud_area {
+  position:relative;
+  width:100vw;
+  height:100vh;
 }
 
+.page .cloud_area .media {
+  position:absolute;
+  padding: 40px 55px;
+  box-sizing: border-box;
+  font-size:24px;
+  font-weight:800;
+  width:350px;
+  background-image: url(/assets/cloud.png);
+  background-size: contain;
+  background-repeat:no-repeat;
+  background-position: center center;
+  transform: -webkit-translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  opacity:0;
+  animation:
+    'fadeIn' 1s ease 0s normal forwards,
+    'cloud' 1s ease 1s alternate forwards infinite
+}
+
+@keyframes fadeIn {
+  from {
+    opacity:0;
+    margin-top:100px;
+  }
+  to {
+    opacity: 1;
+    margin-top:0;
+  }
+}
+@keyframes cloud {
+  from {
+    margin-top: 0;
+  }
+  to {
+    margin-top:10px;
+  }
+}
 .page .card .media-body div.edit-buttons { /*追加*/
   margin-top: 10px;
   text-align: center;
@@ -86,7 +108,3 @@
 .page .card .media-body div.edit-buttons .btn { /*追加*/
   width: 100px;
 }
-/*削除
-.page .chart-form {
-  margin: 20px 0;
-}*/

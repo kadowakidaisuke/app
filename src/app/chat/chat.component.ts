@@ -12,7 +12,6 @@ const ANOTHER_USER: User = new User(2, 'Suzuki Taro');
 })
 
 export class ChatComponent implements OnInit {
-
   public FB_comments: FirebaseListObservable<any[]>;
   public content = '';
   public comments: Comment[] = [];
@@ -32,6 +31,9 @@ export class ChatComponent implements OnInit {
 
   // 新しいコメントを追加
   addComment(comment: string) {
+     if (this.count < 0) {
+       return false;
+     }
      if (comment) {
        this.FB_comments.push(new Comment(this.current_user, comment));
        //最大保持数の設定
@@ -39,6 +41,8 @@ export class ChatComponent implements OnInit {
          this.comments.shift();
        }
        this.content = '';
+       //文字数カウントリセット
+       this.count = this.max;
      }
   }
 
@@ -77,6 +81,20 @@ export class ChatComponent implements OnInit {
   //トラッキング
   trackFn(index: any, comment: any){
     return comment.key;
+  }
+
+  //入力文字数カウント
+  max = 100;
+  count = this.max;
+  myStyle = {background:'none'};
+  setCount(){
+    this.count = this.max - this.content.length;
+    if(this.count < 0){
+      this.myStyle = {background:'red'};
+    }
+    else {
+      this.myStyle = {background:'none'};
+    }
   }
 
 }

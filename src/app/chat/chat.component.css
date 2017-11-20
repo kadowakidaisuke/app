@@ -3,13 +3,12 @@
   margin: 0 auto;
   background-color: #fff;
 }
-
 .page section{
   margin: 50px 10px 30px; /*margine-topを50pxに*/
 }
 
 
-.page .page-footer{ 
+.page .page-footer{
   display: block;
   position: fixed;
   margin: 0;
@@ -60,7 +59,9 @@
 .cloud_area {
   position:relative;
   width:100vw;
+  min-width:800px;
   height:100vh;
+  min-height:600px;
 }
 
 .page .cloud_area .media {

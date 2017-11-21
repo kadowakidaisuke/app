@@ -5,68 +5,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 const CURRENT_USER: User = new User(1, 'Tanaka Jiro');
 const ANOTHER_USER: User = new User(2, 'Suzuki Taro');
 
-(function(){
-  var drag_x:number;
-  var drag_y:number;
-  //ドラッグ&ドロップ
-  var elements: any = document.getElementsByClassName("media");
-  console.log(elements);
-  //マウスが要素内で押されたとき、又はタッチされたとき発火
-  for(var i = 0; i < elements.length; i++) {
-    elements[i].addEventListener("mousedown", mdown, false);
-    elements[i].addEventListener("touchstart", mdown, false);
-  }
-  function mdown(e){
-    this.classList.add('drag');
-    console.log('aaa')
-    //タッチデイベントとマウスのイベントの差異を吸収
-    if(e.type === "mousedown") {
-      var event = e;
-    }
-    else {
-      var event = e.changedTouches[0];
-    }
-    //要素内の相対座標を取得
-    drag_x = event.pageX - this.offsetLeft;
-    drag_y = event.pageY - this.offsetTop;
-    //ムーブイベントにコールバック
-    document.addEventListener("mousemove", mmove, false);
-    document.addEventListener("touchmove", mmove, false);
-  }
-  //マウスカーソルが動いたときに発火
-  function mmove(e) {
-    //ドラッグしている要素を取得
-    var drag = <HTMLElement>document.getElementsByClassName("drag")[0];
-    //同様にマウスとタッチの差異を吸収
-    if(e.type === "mousemove") {
-       var event = e;
-    } else {
-       var event = e.changedTouches[0];
-    }
-    //フリックしたときに画面を動かさないようにデフォルト動作を抑制
-    e.preventDefault();
-    //マウスが動いた場所に要素を動かす
-    drag.style.top = event.pageY - drag_y + "px";
-    drag.style.left = event.pageX - drag_x + "px";
-    //マウスボタンが離されたとき、またはカーソルが外れたとき発火
-    drag.addEventListener("mouseup", mup, false);
-    document.body.addEventListener("mouseleave", mup, false);
-    drag.addEventListener("touchend", mup, false);
-    document.body.addEventListener("touchleave", mup, false);
-  }
 
-  //マウスボタンが上がったら発火
-  function mup(e) {
-    var drag = document.getElementsByClassName("drag")[0];
-    //ムーブベントハンドラの消去
-    document.body.removeEventListener("mousemove", mmove, false);
-    drag.removeEventListener("mouseup", mup, false);
-    document.body.removeEventListener("touchmove", mmove, false);
-    drag.removeEventListener("touchend", mup, false);
-    //クラス名 .drag も消す
-    drag.classList.remove("drag");
-  }
-})()
 
 @Component({
   selector: 'app-chat',
@@ -82,7 +21,6 @@ export class ChatComponent implements OnInit {
   public content = '';
   public comments: Comment[] = [];
   public current_user = CURRENT_USER;
-  //console.log(this)
 
   constructor(private db: AngularFireDatabase){ } // praivateを追加
 
@@ -94,7 +32,7 @@ export class ChatComponent implements OnInit {
       snapshots.forEach((snapshot: any) => {
         this.comments.push(new Comment(snapshot.user, snapshot.content).setData(snapshot));
         //最大保持数の設定
-        while(this.comments.length > 10){
+        while(this.comments.length > 30){
           this.comments.shift();
         }
       });
@@ -161,6 +99,29 @@ export class ChatComponent implements OnInit {
     else {
       this.myStyle = {background:'none'};
     }
+  }
+
+  // ドラッグ
+  drag: any;
+  mdown(e:any){
+    console.log(e);
+    e.target.classList.add('drag');
+    this.drag = <HTMLElement>document.getElementsByClassName("drag")[0];
+    this.drag.style.zIndex = '1000';
+  }
+  mmove(e:any){
+    this.drag = <HTMLElement>document.getElementsByClassName("drag")[0];
+    if(!this.drag){
+      return false;
+    }
+    this.drag.style.left = e.clientX + 'px';
+    this.drag.style.top = e.clientY + 'px';
+  }
+  mup(e:any){
+    if(!this.drag){
+      return false;
+    }
+    this.drag.classList.remove('drag');
   }
 
 }

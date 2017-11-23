@@ -26,13 +26,14 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() { // コンストラクタの内容を移す
     this.FB_comments = this.db.list('/comments'); // thisを追加
+    console.log(this.FB_comments);
     this.FB_comments.subscribe((snapshots: any[]) => {
       this.comments = [];
       console.log(snapshots);
       snapshots.forEach((snapshot: any) => {
         this.comments.push(new Comment(snapshot.user, snapshot.content).setData(snapshot));
         //最大保持数の設定
-        while(this.comments.length > 30){
+        while(this.comments.length > 20){
           this.comments.shift();
         }
       });
@@ -103,11 +104,18 @@ export class ChatComponent implements OnInit {
 
   // ドラッグ
   drag: any;
+  dragList: any;
   mdown(e:any){
     console.log(e);
     e.target.classList.add('drag');
+    this.dragList = document.getElementsByClassName("media");
     this.drag = <HTMLElement>document.getElementsByClassName("drag")[0];
-    this.drag.style.zIndex = '1000';
+    //ドラッグした要素を最前面に配置
+    let zIndexList = [];
+    for(let i of this.dragList){
+      zIndexList.push(i.style.zIndex);
+    }
+    this.drag.style.zIndex = Math.max.apply(null,zIndexList) + 1;
   }
   mmove(e:any){
     this.drag = <HTMLElement>document.getElementsByClassName("drag")[0];
@@ -121,6 +129,11 @@ export class ChatComponent implements OnInit {
     if(!this.drag){
       return false;
     }
+    // 位置を保存する
+    this.FB_comments.update(this.drag.getAttribute('key'),{
+      cloud_x : e.clientX / window.innerWidth * 100,
+      cloud_y : e.clientY / window.innerHeight * 100
+    })
     this.drag.classList.remove('drag');
   }
 

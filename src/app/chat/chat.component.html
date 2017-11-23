@@ -3,7 +3,7 @@
     <div class="cloud_area">
       <ng-container *ngFor="let comment of comments.reverse();let i = index; trackBy: trackFn">
         <!-- iを追加 -->
-        <div class="media" [style.top]="comment.cloud_y + '%'" [style.left]="comment.cloud_x + '%'" [style.z-index]="comments.length - i" (mousedown)="mdown($event)" (mouseup)="mup($event)">
+        <div class="media" [style.top]="comment.cloud_y + '%'" [style.left]="comment.cloud_x + '%'" [style.z-index]="comments.length - i" [attr.key]="comment.key" (mousedown)="mdown($event)" (mouseup)="mup($event)">
           <!--<h4 class="media-heading">{{comment.user.name}}  Date: {{comment.date | chatDate}}
            <button class="btn btn-primary btn-sm" (click)="toggleEditComment(i)">編集</button>
            <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.key)">削除</button>

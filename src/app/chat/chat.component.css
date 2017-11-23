@@ -13,8 +13,8 @@
   bottom: 0;
   height: 75px;
   width: 100%;
-  max-width: 958px;
-  background-color: #fff;
+  width: 100%;
+  background-color: rgba(255,255,255,0.6);
   border-top: 1px solid #DDDDDD;
   z-index: 9999;
 }
@@ -55,11 +55,12 @@
 
 .page .cloud_area .media {
   position:absolute;
-  padding: 70px 55px;
+  padding: 20px 20px 40px;
   box-sizing: border-box;
   font-size:24px;
   font-weight:800;
-  width:350px;
+  width:200px;
+  height:153px;
   border-radius: 10px;
   font-size: 15px;
   text-align: center;

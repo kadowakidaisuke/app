@@ -3,19 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { AccountModule } from './account/account.module'; // 追加
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule} from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule} from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { ChatComponent } from './chat/chat.component'; // 追加
+import { ChatComponent } from './chat/chat.component';
+import { LoginComponent } from './login/login.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
-import { LoginComponent } from './login/login.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: ChatComponent },
@@ -28,7 +28,7 @@ const appRoutes: Routes = [
     AppComponent,
     ChatComponent,
     PageNotFoundComponent,
-    LoginComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +37,10 @@ const appRoutes: Routes = [
     SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

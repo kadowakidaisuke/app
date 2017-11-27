@@ -104,3 +104,9 @@
 .page .cloud .media-body div.edit-buttons .btn { /*追加*/
   width: 100px;
 }
+.page-footer .form-control{
+  width:50%;
+  box-sizing:border-box;
+  padding:5px;
+  border-radius: 10px;
+}

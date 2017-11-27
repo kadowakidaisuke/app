@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-login',
@@ -10,5 +12,6 @@ export class LoginComponent {
   stopBabble(e:any){
     e.stopPropagation();
   }
+  public user: Observable<firebase.User>;
 
 }

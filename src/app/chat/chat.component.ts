@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Comment, User } from '../class/chat'; // パスを調整
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
+
 
 const CURRENT_USER: User = new User(1, 'Tanaka Jiro');
 const ANOTHER_USER: User = new User(2, 'Suzuki Taro');
@@ -16,12 +19,14 @@ export class ChatComponent implements OnInit {
   public content = '';
   public comments: Comment[] = [];
   public current_user = CURRENT_USER;
+  public user: Observable<firebase.User>;
+
 
   constructor(private db: AngularFireDatabase){ } // praivateを追加
 
   ngOnInit() { // コンストラクタの内容を移す
     this.FB_comments = this.db.list('/comments'); // thisを追加
-    console.log(this.FB_comments);
+    console.log(this.user);
     this.FB_comments.subscribe((snapshots: any[]) => {
       this.comments = [];
       console.log(snapshots);

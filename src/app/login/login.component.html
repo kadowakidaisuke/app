@@ -1,0 +1,9 @@
+<div class="login" *ngIf="loginFlag" (click)="loginFlag = false">
+  <div class="login_form" (click)="stopBabble($event)">
+    <form>
+      <p><input type="text"></p>
+      <p><input type="password"></p>
+      <p><input type="button" value="login"><input type="button" value="cancel" (click)="loginFlag = false"></p>
+    </form>
+  </div>
+</div>

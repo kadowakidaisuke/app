@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CoreModule } from './core/core.module'; // 追加
-import { SharedModule } from './shared/shared.module'; // 追加
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 import { AccountModule } from './account/account.module'; // 追加
 
 import { AngularFireModule } from 'angularfire2';
@@ -15,6 +15,7 @@ import { ChatComponent } from './chat/chat.component'; // 追加
 
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   { path: '', component: ChatComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
     AppComponent,
     ChatComponent,
     PageNotFoundComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,16 +5,11 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 const CURRENT_USER: User = new User(1, 'Tanaka Jiro');
 const ANOTHER_USER: User = new User(2, 'Suzuki Taro');
 
-
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-
-
-
 
 export class ChatComponent implements OnInit {
   public FB_comments: FirebaseListObservable<any[]>;
@@ -31,7 +26,7 @@ export class ChatComponent implements OnInit {
       this.comments = [];
       console.log(snapshots);
       snapshots.forEach((snapshot: any) => {
-        this.comments.push(new Comment(snapshot.user, snapshot.content).setData(snapshot));
+        this.comments.push(new Comment(snapshot.user, snapshot.content, snapshot.cloud_z).setData(snapshot));
         //最大保持数の設定
         while(this.comments.length > 20){
           this.comments.shift();
@@ -45,12 +40,11 @@ export class ChatComponent implements OnInit {
        return false;
      }
      if (comment) {
-       this.FB_comments.push(new Comment(this.current_user, comment));
+       this.FB_comments.push(new Comment(this.current_user, comment, this.overlay()));
        this.content = '';
        //文字数カウントリセット
        this.count = this.max;
      }
-     console.log(this.comments);
   }
 
   // 編集フィールドの切り替え
@@ -88,6 +82,22 @@ export class ChatComponent implements OnInit {
     return comment.key;
   }
 
+  // 文字サイズ設定
+  setFont(i:number){
+    if(i < 10){
+      return '24px'
+    }
+    else if(i < 30){
+      return '18px'
+    }
+    else if(i < 60){
+      return '14px'
+    }
+    else {
+      return '10px'
+    }
+  }
+
   //入力文字数カウント
   max = 100;
   count = this.max;
@@ -102,20 +112,29 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  // 最前面の設定
+  dragList : any = document.getElementsByClassName("media");
+  overlay(){
+    if(this.dragList.length == 0){
+      return 1
+    }
+    else {
+      let zIndexList = [];
+      for(let i of this.dragList){
+        zIndexList.push(i.style.zIndex);
+      }
+      return Math.max.apply(null,zIndexList) + 1;
+    }
+  }
+
   // ドラッグ
   drag: any;
-  dragList: any;
   mdown(e:any){
     console.log(e);
     e.target.classList.add('drag');
-    this.dragList = document.getElementsByClassName("media");
     this.drag = <HTMLElement>document.getElementsByClassName("drag")[0];
     //ドラッグした要素を最前面に配置
-    let zIndexList = [];
-    for(let i of this.dragList){
-      zIndexList.push(i.style.zIndex);
-    }
-    this.drag.style.zIndex = Math.max.apply(null,zIndexList) + 1;
+    this.drag.style.zIndex = this.overlay();
   }
   mmove(e:any){
     this.drag = <HTMLElement>document.getElementsByClassName("drag")[0];
@@ -132,7 +151,8 @@ export class ChatComponent implements OnInit {
     // 位置を保存する
     this.FB_comments.update(this.drag.getAttribute('key'),{
       cloud_x : e.clientX / window.innerWidth * 100,
-      cloud_y : e.clientY / window.innerHeight * 100
+      cloud_y : e.clientY / window.innerHeight * 100,
+      cloud_z : this.drag.style.zIndex
     })
     this.drag.classList.remove('drag');
   }

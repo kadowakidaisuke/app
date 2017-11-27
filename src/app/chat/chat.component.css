@@ -57,12 +57,14 @@
   position:absolute;
   padding: 20px 20px 40px;
   box-sizing: border-box;
-  font-size:24px;
-  font-weight:800;
-  width:200px;
-  height:153px;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  font-size:10px;
+  font-weight:bold;
+  width:270px;
+  height:206.5px;
   border-radius: 10px;
-  font-size: 15px;
   text-align: center;
   word-break: break-all;
   background-image: url(/assets/cloud.png);
@@ -76,7 +78,6 @@
     'fadeIn' 1s ease 0s normal forwards,
     'cloud' 1s ease 1s alternate forwards infinite
 }
-
 @keyframes fadeIn {
   from {
     opacity:0;

@@ -19,8 +19,8 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
 
 const appRoutes: Routes = [
   { path: '', component: ChatComponent },
-  { path: 'account', loadChildren: 'app/account/account.module#AccountModule',}, // ???
-  { path: '**', component: PageNotFoundComponent }, // 追加
+  { path: 'account', loadChildren: 'app/account/account.module#AccountModule',},
+  { path: '**', component: PageNotFoundComponent }, 
 ];
 
 @NgModule({

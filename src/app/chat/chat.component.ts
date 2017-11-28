@@ -22,11 +22,11 @@ export class ChatComponent implements OnInit {
   public user: Observable<firebase.User>;
 
 
+
   constructor(private db: AngularFireDatabase){ } // praivateを追加
 
   ngOnInit() { // コンストラクタの内容を移す
-    this.FB_comments = this.db.list('/comments'); // thisを追加
-    console.log(this.user);
+    this.FB_comments = this.db.list('/comments'); // thisを追加);
     this.FB_comments.subscribe((snapshots: any[]) => {
       this.comments = [];
       console.log(snapshots);

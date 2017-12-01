@@ -5,8 +5,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
 import { AngularFireModule} from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule} from 'angularfire2/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -20,7 +20,7 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
 const appRoutes: Routes = [
   { path: '', component: ChatComponent },
   { path: 'account', loadChildren: 'app/account/account.module#AccountModule',},
-  { path: '**', component: PageNotFoundComponent }, 
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

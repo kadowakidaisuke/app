@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Comment, User } from '../class/chat'; // パスを調整
+import { Comment, User } from '../class/chat';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
@@ -23,7 +23,9 @@ export class ChatComponent implements OnInit {
 
 
 
-  constructor(private db: AngularFireDatabase){ } // praivateを追加
+  constructor(private db: AngularFireDatabase){
+    console.log(db);
+  } // praivateを追加
 
   ngOnInit() { // コンストラクタの内容を移す
     this.FB_comments = this.db.list('/comments'); // thisを追加);
